@@ -2,8 +2,8 @@ using Azure.Identity;
 using Microsoft.Azure.Cosmos;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddRazorPages();
-builder.Services.AddServerSideBlazor();
+builder.Services.AddRazorPages(); // razor needs for ./Pages/_Host.cshtml page
+builder.Services.AddServerSideBlazor(); //и blazor
 
 if (builder.Environment.IsDevelopment())
 {
@@ -12,14 +12,14 @@ if (builder.Environment.IsDevelopment())
         // <create_client>
         CosmosClient client = new(
             accountEndpoint: builder.Configuration["AZURE_COSMOS_DB_NOSQL_ENDPOINT"]!,
-            tokenCredential: new DefaultAzureCredential()
+            tokenCredential: new DefaultAzureCredential() // рекомендуют такую штуку как универсальную
         );
         // </create_client>
         return client;
     });
 }
 else
-{
+{// для release
     builder.Services.AddSingleton<CosmosClient>((_) =>
     {
         // <create_client_client_id>
@@ -49,7 +49,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.MapBlazorHub();
-app.MapFallbackToPage("/_Host");
+app.MapBlazorHub(); // blazor
+app.MapFallbackToPage("/_Host"); // refers to ./Pages/_Host.cshtml
 
 app.Run();

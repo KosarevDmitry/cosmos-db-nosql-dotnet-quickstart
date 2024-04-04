@@ -7,8 +7,8 @@ services:
     language: csharp
     host: containerapp
     docker:
-      path: ./Dockerfile
-      context: ../
+      path: ./Dockerfile # адрес относительно ./src/web 
+      context: ../ # ./src
 pipeline:
   provider: github
 hooks:
@@ -27,7 +27,7 @@ hooks:
         dotnet user-secrets set "AZURE_COSMOS_DB_NOSQL_ENDPOINT" "$AZURE_COSMOS_ENDPOINT" --project ./src/web/Cosmos.Samples.NoSQL.Quickstart.Web.csproj
         echo ""
         echo "View the running web application in Azure Container Apps:"
-        echo -e "\033[0;36m$AZURE_CONTAINER_APP_ENDPOINT\033[0m"
-      shell: sh
+        echo -e "\033[0;36m$AZURE_CONTAINER_APP_ENDPOINT\033[0m" 
+      shell: sh 
       continueOnError: false
       interactive: true

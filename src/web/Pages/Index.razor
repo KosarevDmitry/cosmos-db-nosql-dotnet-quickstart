@@ -1,9 +1,10 @@
 ﻿@page "/"
-@inject ICosmosDbService cosmosDbService
+@* add dependency *@
+@inject ICosmosDbService cosmosDbService 
 @using System.Text
 
 <pre class="bg-light text-dark fw-light font-monospace mt-5 p-2">
-    @_console.ToString()
+        @_console.ToString() @* _console is stringBuilder *@
 </pre>
 
 <section class="d-flex justify-content-center">
